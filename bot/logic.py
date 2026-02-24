@@ -1,14 +1,39 @@
 import random
-
+import json 
+import os
 class ChatLogic:
     def __init__(self):
-        self.responses = {
-            "hi": ["Hello 👋", "Hey there!"],
-            "hello": ["Hi!", "Nice to see you!"],
-            "how are you": ["I'm doing great!", "All good here!"]
-        }
+       self.file_path = "responses.json"
+       self.responses = self.load_responses()
+
+    def load_responses(self):
+        if os.path.exists(self.file_path):
+          with open(self.file_path,"r") as file:   
+                return json.load(file)
+        else:
+          return()
+        
+    def save_responses(self):
+       with open(self.file_path,"w") as file:
+          json.dump(self.responses,file,indent=4) 
+
 
     def get_response(self, user_input, name):
+        if user_input.startswith("teach:"):
+           try:
+            data = user_input.replace("teach:", "").strip()
+            key, value = data.split("=")
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key not in self.responses:
+             self.responses[key] = []
+
+            self.responses[key].append(value)
+            self.save_responses()
+            return f"Learned new response for '{key}'!"
+           except:
+            return "Invalid format. Use: teach: keyword = response"
         if "sad" in user_input:
             return "I'm sorry to hear that. Want to talk about it?"
 

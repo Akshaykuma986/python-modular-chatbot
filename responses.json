@@ -1,0 +1,17 @@
+{
+    "hi": [
+        "Hello \u00f0\u0178\u2018\u2039",
+        "Hey there!"
+    ],
+    "hello": [
+        "Hi!",
+        "Nice to see you!"
+    ],
+    "how are you": [
+        "I'm doing great!",
+        "All good here!"
+    ],
+    "akki": [
+        "bakki"
+    ]
+}
